@@ -17,15 +17,10 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     boolean gameActive = true;
-    // Player representation
-    // 0 - X
-    // 1 - O
+
     int activePlayer = 0;
     int[] gameState = {2, 2 , 2, 2, 2, 2, 2, 2, 2};
-    //    State meanings:
-    //    0 - X
-    //    1 - O
-    //    2 - Null
+    
     int[][] winPositions = {{0,1,2}, {3,4,5}, {6,7,8},
             {0,3,6}, {1,4,7}, {2,5,8},
             {0,4,8}, {2,4,6}};
@@ -51,12 +46,11 @@ public class MainActivity extends AppCompatActivity {
             }
             img.animate().translationYBy(1000f).setDuration(300);
         }
-        // Check if any player has won
+        
         for(int[] winPosition: winPositions){
             if(gameState[winPosition[0]] == gameState[winPosition[1]] &&
                     gameState[winPosition[1]] == gameState[winPosition[2]] &&
                     gameState[winPosition[0]]!=2){
-                // Somebody has won! - Find out who!
                 String winnerStr;
                 gameActive = false;
                 if(gameState[winPosition[0]] == 0){
@@ -65,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     winnerStr = "O has won";
                 }
-                // Update the status bar for winner announcement
                 TextView status = findViewById(R.id.status);
                 status.setText(winnerStr);
 
@@ -80,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public void gameReset(View view) {
         gameActive = true;
         activePlayer = 0;
+        
         for(int i=0; i<gameState.length; i++){
             gameState[i] = 2;
         }
@@ -104,20 +98,3 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 }
-
-
-
-//    @SuppressLint("MissingSuperCall")
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
-//        setContentView(R.layout.activity_main);
-//
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
-//    }
-//}
